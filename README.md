@@ -76,6 +76,19 @@ npm run db:push
 
 # Drizzle Studioを起動してデータを可視化
 npm run db:studio
+
+# Supabaseコマンド
+# ローカルSupabaseサーバーを起動
+npm run supabase:start
+
+# ローカルSupabaseサーバーを停止
+npm run supabase:stop
+
+# Supabase Studioを起動（Webブラウザベースの管理UI）
+npm run supabase:studio
+
+# Supabase型定義を生成
+npm run supabase:gen-types
 ```
 
 ## プロジェクト構成
@@ -150,10 +163,16 @@ supabase db push
 Supabaseの型定義を生成するには以下のコマンドを実行します：
 
 ```bash
-npm run db:migrate
+npm run supabase:gen-types
 ```
 
-このコマンドはDrizzleのマイグレーションファイル生成と同時にSupabaseの型定義も生成し、`src/types/database.types.ts`に保存します。
+このコマンドはローカルのSupabaseサーバーから型定義を生成し、`src/types/database.types.ts`に保存します。
+
+また、マイグレーションファイルを生成するには以下のコマンドを実行します：
+
+```bash
+npm run db:migrate
+```
 
 ### Supabaseクライアントの使用
 
