@@ -3,6 +3,8 @@
 このプロジェクトは、DrizzleORMを使用してSQLを生成し、Supabase SDKと連携するサンプル実装です。
 TODO Listアプリケーションとして実装されています。
 
+> **最終更新日**: 2025年3月1日
+
 ## プロジェクト概要
 
 - **目的**: DrizzleORMからSQLを生成し、Supabase SDKと連携する方法を示す
@@ -11,11 +13,13 @@ TODO Listアプリケーションとして実装されています。
 
 ## 技術スタック
 
-- Next.js
-- DrizzleORM
-- Supabase SDK
-- TypeScript
-- TailwindCSS
+- Next.js 15.2.0
+- React 19
+- DrizzleORM 0.40.0
+- Supabase SDK 2.49.1
+- TypeScript 5
+- TailwindCSS 4
+- Biome (リンター/フォーマッター)
 
 ## セットアップ手順
 
@@ -38,11 +42,29 @@ DATABASE_URL=postgres://postgres:postgres@localhost:54321/postgres
 - Supabaseローカル開発環境: `DATABASE_URL=postgres://postgres:postgres@localhost:54321/postgres`
 - Supabaseクラウド環境: Supabaseダッシュボードから「Settings > Database」で「Connection String > URI」をコピー
 
-### 3. DrizzleORMコマンド
+### 3. 開発コマンド
 
 package.jsonに以下のスクリプトを追加しています：
 
 ```bash
+# 開発サーバーの起動
+npm run dev
+
+# プロジェクトのビルド
+npm run build
+
+# ビルドしたアプリケーションの起動
+npm run start
+
+# Biomeによるリント
+npm run lint
+npm run lint:fix
+
+# Biomeによるフォーマット
+npm run format
+npm run format:fix
+
+# DrizzleORMコマンド
 # スキーマからマイグレーションファイルを生成
 npm run db:generate
 
@@ -191,3 +213,6 @@ export async function toggleAllTodos(completed: boolean) { ... }
 - [Supabase Documentation](https://supabase.com/docs)
 - [DrizzleORM with Supabase Tutorial](https://orm.drizzle.team/docs/tutorials/drizzle-with-supabase)
 - [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev/)
+- [Biome Documentation](https://biomejs.dev/)
+- [TailwindCSS Documentation](https://tailwindcss.com/docs)
