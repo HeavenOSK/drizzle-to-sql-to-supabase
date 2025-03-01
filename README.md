@@ -223,6 +223,40 @@ export async function toggleAllTodos(completed: boolean) { ... }
 
 これらの関数を使用することで、型安全にTodoの操作を行うことができます。
 
+## ユースケース
+
+### スキーマ更新ワークフロー
+
+新しいフィールドやテーブルをスキーマに追加する際のワークフローは以下の通りです：
+
+1. ローカルのSupabaseサーバーを起動します
+   ```bash
+   npm run supabase:start
+   ```
+
+2. `src/db/schema.ts` を編集してスキーマを更新します（例：新しいフィールドやテーブルを追加）
+
+3. マイグレーションファイルを生成します
+   ```bash
+   npm run db:generate
+   ```
+
+4. マイグレーションを適用します
+   ```bash
+   npm run db:migrate
+   ```
+
+5. Supabaseの型定義を更新します
+   ```bash
+   npm run supabase:gen-types
+   ```
+
+6. 更新された型定義を利用してコードを更新します
+   - `src/lib/todos.ts` などのビジネスロジックが新しいスキーマに対応するように更新
+   - コンポーネントや画面の更新
+
+これにより、スキーマの変更からクライアントコードまで型安全に維持することができます。
+
 ## 参考リソース
 
 - [DrizzleORM Documentation](https://orm.drizzle.team/)
