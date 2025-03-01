@@ -11,10 +11,9 @@
     "format": "biome format .",
     "format:fix": "biome format --write .",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "drizzle-kit generate && npx supabase gen types typescript --local > src/types/database.types.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
-    "db:gen-types": "drizzle-kit generate && npx supabase gen types typescript --local > src/types/database.types.ts"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

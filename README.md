@@ -68,7 +68,7 @@ npm run format:fix
 # スキーマからマイグレーションファイルを生成
 npm run db:generate
 
-# マイグレーションを実行
+# マイグレーションファイル生成とSupabase型定義の生成を同時に行う
 npm run db:migrate
 
 # データベースに直接変更をプッシュ（開発環境向け）
@@ -76,9 +76,6 @@ npm run db:push
 
 # Drizzle Studioを起動してデータを可視化
 npm run db:studio
-
-# Drizzleマイグレーションの生成とSupabase型定義の生成を同時に行う
-npm run db:gen-types
 ```
 
 ## プロジェクト構成
@@ -153,7 +150,7 @@ supabase db push
 Supabaseの型定義を生成するには以下のコマンドを実行します：
 
 ```bash
-npm run db:gen-types
+npm run db:migrate
 ```
 
 このコマンドはDrizzleのマイグレーションファイル生成と同時にSupabaseの型定義も生成し、`src/types/database.types.ts`に保存します。
