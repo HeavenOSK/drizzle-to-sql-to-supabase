@@ -54,6 +54,9 @@ npm run db:push
 
 # Drizzle Studioを起動してデータを可視化
 npm run db:studio
+
+# Drizzleマイグレーションの生成とSupabase型定義の生成を同時に行う
+npm run db:gen-types
 ```
 
 ## プロジェクト構成
@@ -61,9 +64,15 @@ npm run db:studio
 ```
 📦 <project root>
  ├ 📂 src
+ │   ├ 📂 app            # Next.jsアプリケーション
  │   ├ 📂 db
  │   │  ├ 📜 index.ts    # データベース接続設定
  │   │  └ 📜 schema.ts   # テーブルスキーマ定義
+ │   ├ 📂 lib
+ │   │  ├ 📜 supabase.ts # Supabase接続設定
+ │   │  └ 📜 todos.ts    # Todoアプリのビジネスロジック
+ │   ├ 📂 types
+ │   │  └ 📜 database.types.ts # Supabase生成型定義
  ├ 📂 supabase
  │   ├ 📂 migrations     # 生成されたマイグレーションファイル
  ├ 📜 .env               # 環境変数
@@ -114,6 +123,67 @@ supabase init
 supabase link
 supabase db push
 ```
+
+## Supabase型定義とクライアント
+
+### 型定義の生成
+
+Supabaseの型定義を生成するには以下のコマンドを実行します：
+
+```bash
+npm run db:gen-types
+```
+
+このコマンドはDrizzleのマイグレーションファイル生成と同時にSupabaseの型定義も生成し、`src/types/database.types.ts`に保存します。
+
+### Supabaseクライアントの使用
+
+`src/lib/supabase.ts`に型付きのSupabaseクライアントを実装しています：
+
+```typescript
+import { createClient } from '@supabase/supabase-js';
+import type { Database } from '../types/database.types';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey);
+```
+
+## Todoアプリのビジネスロジック
+
+`src/lib/todos.ts`にTodoの操作に関する各種関数を実装しています：
+
+```typescript
+// Todo一覧を取得
+export async function getTodos() { ... }
+
+// 特定のTodoを取得
+export async function getTodo(id: number) { ... }
+
+// Todoを作成
+export async function createTodo(todo: NewTodo) { ... }
+
+// Todoを更新
+export async function updateTodo(id: number, todo: Partial<NewTodo>) { ... }
+
+// Todoを削除
+export async function deleteTodo(id: number) { ... }
+
+// 複数のTodoを一括削除
+export async function deleteTodos(ids: number[]) { ... }
+
+// 完了したTodoをすべて削除
+export async function deleteCompletedTodos() { ... }
+
+// Todoの完了状態を切り替え
+export async function toggleTodo(id: number) { ... }
+
+// すべてのTodoの完了状態を一括更新
+export async function toggleAllTodos(completed: boolean) { ... }
+```
+
+これらの関数を使用することで、型安全にTodoの操作を行うことができます。
 
 ## 参考リソース
 
